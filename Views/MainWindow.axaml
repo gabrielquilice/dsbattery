@@ -1,0 +1,95 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:DSBattery.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="850" d:DesignHeight="450"
+        x:Class="DSBattery.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/logo.ico"
+        Title="DSBattery"
+        Width="850"
+        Height="450"
+        CanMaximize="False"
+        Closing="Window_OnClosing"
+        CanResize="False">
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel />
+    </Design.DataContext>
+
+    <Window.Styles>
+        <Style Selector="TextBlock.subtitle">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+        <Style Selector="TextBlock.copyright">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="Medium" />
+            <Setter Property="Foreground" Value="#3D475C" />
+        </Style>
+        <Style Selector="DataGridColumnHeader">
+            <Setter Property="FontFamily" Value="{StaticResource LexendFont}" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Background" Value="#1F242E" />
+            <Setter Property="FontWeight" Value="Medium" />
+            <Setter Property="Padding" Value="16 12" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+        </Style>
+        <Style Selector="TextBlock.gridCell">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Padding" Value="16 12" />
+        </Style>
+    </Window.Styles>
+
+    <DockPanel Margin="60 60 60 10">
+        <StackPanel Spacing="20" DockPanel.Dock="Top">
+            <Image Source="avares://DSBattery/Assets/logo.png" HorizontalAlignment="Center" Width="300" />
+            <TextBlock Classes="subtitle" HorizontalAlignment="Center">Battery status of DualShock® and DualSense® gamepads</TextBlock>
+            <DataGrid ItemsSource="{Binding Items}"
+                      IsReadOnly="True"
+                      ClipToBounds="True"
+                      IsEnabled="False"
+                      GridLinesVisibility="None"
+                      CellTheme=""
+                      BorderThickness="1" BorderBrush="#3D475C" CornerRadius="8" Padding="8">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Gamepad Kind" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Kind}" Classes="gridCell" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Status" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Status}" Classes="gridCell" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Battery Level" Width="*" CanUserSort="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid HorizontalAlignment="Left" Margin="16 12" ColumnDefinitions="*,Auto" RowDefinitions="Auto" ColumnSpacing="16">
+                                    <ProgressBar Height="4"
+                                                 Background="#3D475C"
+                                                 Foreground="#264787"
+                                                 Minimum="0" Maximum="100" Value="{Binding BatteryPercentage}" Grid.Column="0" />
+                                    <TextBlock Text="{Binding BatteryPercentage}" Grid.Column="1" />
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        <TextBlock Classes="copyright" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 20 0 0"
+                   DockPanel.Dock="Bottom">
+            DualShock® and DualSense® are registered trademarks from Sony Interactive Entertainment LLC
+        </TextBlock>
+    </DockPanel>
+
+</Window>

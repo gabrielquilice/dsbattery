@@ -1,7 +1,0 @@
-    "custom/dsbattery": {
-            "format": "{}",
-            "interval": 3,
-            "escape": true,
-            "exec": "dsbattery",
-            "on-click-right": "dsbattery -d"
-    }

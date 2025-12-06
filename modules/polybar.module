@@ -1,5 +1,0 @@
-[module/dsbattery]
-type = custom/script
-exec = dsbattery
-click-right = dsbattery -d
-label-padding = 1

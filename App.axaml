@@ -1,0 +1,40 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="DSBattery.App"
+             xmlns:local="using:DSBattery"
+             RequestedThemeVariant="Default">
+    <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+    <Application.DataTemplates>
+        <local:ViewLocator />
+    </Application.DataTemplates>
+    <Application.Resources>
+        <FontFamily x:Key="LexendFont">avares://DSBattery/Assets/Fonts#Lexend</FontFamily>
+    </Application.Resources>
+    <Application.Styles>
+        <FluentTheme />
+        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml" />
+        <Styles>
+            <Style Selector="Window">
+                <Setter Property="Background" Value="#14171F" />
+            </Style>
+            <Style Selector="TextBlock">
+                <Setter Property="FontFamily" Value="{StaticResource LexendFont}" />
+                <Setter Property="Foreground" Value="#FFFFFF" />
+            </Style>
+        </Styles>
+    </Application.Styles>
+    <TrayIcon.Icons>
+        <TrayIcons>
+            <TrayIcon Icon="/Assets/logo.ico"
+                      ToolTipText="DS Battery"
+                      Clicked="TrayIcon_OnClicked">
+                <TrayIcon.Menu>
+                    <NativeMenu>
+                        <NativeMenuItem Header="Close"  Click="MenuItemClose_OnClick" />
+                    </NativeMenu>
+                </TrayIcon.Menu>
+            </TrayIcon>
+        </TrayIcons>
+    </TrayIcon.Icons>
+</Application>
